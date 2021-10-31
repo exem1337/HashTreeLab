@@ -85,11 +85,11 @@ namespace HashTreeLab
 
         Chart _chart;
 
-        public HashTable(Chart chart)
+        public HashTable()
         {
             // Инициализируем коллекцию максимальным количество элементов.
             _items = new Dictionary<int, List<Item>>(_maxSize);
-            _chart = chart;
+            //_chart = chart;
         }
 
         /// <summary>

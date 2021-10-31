@@ -17,14 +17,15 @@ namespace HashTreeLab
         {
             string s = File.ReadAllText("Text.txt");
             string[] subs = s.Split(' ');
+            
             createHashTable(subs);
-            //createBinaryTree(subs);
+            createBinaryTree(subs);
         }
+
+        BinaryTree bt = new BinaryTree();
 
         void createBinaryTree(string[] subs)
         {
-            var bt = new BinaryTree();
-            
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
             Random rnd = new Random();
@@ -32,9 +33,10 @@ namespace HashTreeLab
             {
                 try
                 {
-                    bt.Insert(rnd.Next(1,200000), subs[i]);
+                    string text = subs[i];
+                    bt.Add(rnd.Next(1,200000), subs[i]);
                 }
-                catch (ArgumentException) { continue; }
+                catch (Exception) { continue; }
             }
 
             stopWatch.Stop();
@@ -46,13 +48,13 @@ namespace HashTreeLab
                 ts.Hours, ts.Minutes, ts.Seconds,
                 ts.Milliseconds / 10);
             label4.Text = "Потребовалось времени на создание бинарного дерева поиска (ч,мин,сек,мсек): " + elapsedTime;
-
+            bt.TraverseInOrder(bt.Root, listBox1);
         }
 
-        void createHashTable(string[] subs)
-        {
-            var hashTable = new HashTable(chart1);
+        HashTable hashTable = new HashTable();
 
+        void createHashTable(string[] subs)
+        { 
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
 
@@ -81,6 +83,48 @@ namespace HashTreeLab
             //textBox1.Text = text;
 
            
+
+        }
+        string selected = null;
+        string selectedWord = null;
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string[] s = listBox1.SelectedItem.ToString().Split(' ');
+            selected = s[0];
+            selectedWord = s[1];
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if(selected != null)
+            {
+                Stopwatch stopWatch = new Stopwatch();
+                stopWatch.Start();
+                hashTable.Search(selectedWord);
+                stopWatch.Stop();
+                // Get the elapsed time as a TimeSpan value.
+                TimeSpan ts = stopWatch.Elapsed;
+
+                // Format and display the TimeSpan value.
+                string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                    ts.Hours, ts.Minutes, ts.Seconds,
+                    ts.Milliseconds / 10);
+                label5.Text = "Времени для поиска в хеш таблице: " + elapsedTime;
+
+                Stopwatch stopWatch1 = new Stopwatch();
+                stopWatch1.Start();
+                bt.Find(Convert.ToInt32(selected));
+                stopWatch1.Stop();
+                // Get the elapsed time as a TimeSpan value.
+                TimeSpan ts1 = stopWatch1.Elapsed;
+
+                // Format and display the TimeSpan value.
+                string elapsedTime1 = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                    ts1.Hours, ts1.Minutes, ts1.Seconds,
+                    ts1.Milliseconds / 10);
+                label6.Text = "Времени для поиска в бинарном дереве: " + elapsedTime1;
+            }
+            else { MessageBox.Show("Нужно выбрать словечко для поиска"); }
 
         }
     }
