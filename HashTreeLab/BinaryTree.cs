@@ -51,9 +51,9 @@ namespace HashTreeLab
             return true;
         }
 
-        public Node Find(int value)
+        public Node Find(int value, ListBox lb)
         {
-            return this.Find(value, this.Root);
+            return this.Find(value, this.Root, lb);
         }
 
         public void Remove(int value)
@@ -101,15 +101,15 @@ namespace HashTreeLab
             return minv;
         }
 
-        private Node Find(int value, Node parent)
+        private Node Find(int value, Node parent, ListBox lb)
         {
             if (parent != null)
             {
-                if (value == parent.Data) return parent;
+                if (value == parent.Data) { lb.Items.Add("Нашел в бинарном дереве: " + parent.Text); return parent; }
                 if (value < parent.Data)
-                    return Find(value, parent.LeftNode);
+                    return Find(value, parent.LeftNode, lb);
                 else
-                    return Find(value, parent.RightNode);
+                    return Find(value, parent.RightNode, lb);
             }
 
             return null;

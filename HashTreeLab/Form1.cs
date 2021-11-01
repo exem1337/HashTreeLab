@@ -26,6 +26,7 @@ namespace HashTreeLab
 
         void createBinaryTree(string[] subs)
         {
+            label4.Text = "Абажжи, создаю бинарное дерево...";
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
             Random rnd = new Random();
@@ -54,7 +55,8 @@ namespace HashTreeLab
         HashTable hashTable = new HashTable();
 
         void createHashTable(string[] subs)
-        { 
+        {
+            label3.Text = "Ща секунду, создам хеш-таблицу...";
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
 
@@ -100,7 +102,7 @@ namespace HashTreeLab
             {
                 Stopwatch stopWatch = new Stopwatch();
                 stopWatch.Start();
-                hashTable.Search(selectedWord);
+                hashTable.Search(selectedWord, listBox1);
                 stopWatch.Stop();
                 // Get the elapsed time as a TimeSpan value.
                 TimeSpan ts = stopWatch.Elapsed;
@@ -113,7 +115,7 @@ namespace HashTreeLab
 
                 Stopwatch stopWatch1 = new Stopwatch();
                 stopWatch1.Start();
-                bt.Find(Convert.ToInt32(selected));
+                bt.Find(Convert.ToInt32(selected), listBox1);
                 stopWatch1.Stop();
                 // Get the elapsed time as a TimeSpan value.
                 TimeSpan ts1 = stopWatch1.Elapsed;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
 namespace HashTreeLab
@@ -199,7 +200,7 @@ namespace HashTreeLab
         /// </summary>
         /// <param name="key"> Ключ. </param>
         /// <returns> Найденные по ключу хранимые данные. </returns>
-        public string Search(string key)
+        public string Search(string key, ListBox lb)
         {
             // Проверяем входные данные на корректность.
             if (string.IsNullOrEmpty(key))
@@ -219,6 +220,7 @@ namespace HashTreeLab
             // то завершаем выполнения метода вернув null.
             if (!_items.ContainsKey(hash))
             {
+                lb.Items.Add("Не нашель :c");
                 return null;
             }
 
@@ -235,6 +237,7 @@ namespace HashTreeLab
                 // то возвращаем хранимые данные.
                 if (item != null)
                 {
+                    lb.Items.Add("Нашел в хеш дереве: " + item);
                     return item.Value;
                 }
             }
